@@ -1,0 +1,28 @@
+.img-main-back {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+}
+
+.container-form-login {
+    width: 520px;
+    padding: 5px;
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 6px 0 rgba(0, 0, 0, 0.19);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.btn-login {
+    color: #fff !important;
+    background-color: #212954;
+    border-color: #212954;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    border-radius: 0.3rem;
+    display: block;
+    margin: auto;
+}

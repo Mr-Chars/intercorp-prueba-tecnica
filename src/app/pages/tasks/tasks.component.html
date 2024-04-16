@@ -1,0 +1,24 @@
+<div class="container">
+    <h1>Lista de tareas</h1>
+    <h3>Usuario: {{user.username}}</h3>
+    <br />
+    <div>
+        <form [formGroup]="taskForm" autocomplete="off">
+            <input type="text" class="form-control input-search" name="name" placeholder="Tarea" formControlName="name">
+            <button (click)="addTask()" [disabled]="!taskForm.valid" class="btn-add">Agregar</button>
+        </form>
+    </div>
+    <table class="table">
+        <tbody>
+            <ng-container *ngFor="let task of tasks; index as i" class="">
+                <tr>
+                    <th>
+                        <input (click)="toggleCheck(i)" type="checkbox" class="cursor-pointer" value="" />
+                    </th>
+                    <td>{{task.name}}</td>
+                    <td><span *ngIf="!task.isChecked" (click)="removeTask(i)" class="cursor-pointer">X</span></td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
