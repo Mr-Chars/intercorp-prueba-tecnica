@@ -4,6 +4,7 @@ import { TASK, USER } from '../../interfaces/generals.interface';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { CommonModule } from '@angular/common';
+import { REGEX_INPUT_TASK } from '../../constans.ts/generals';
 
 @Component({
   selector: 'app-tasks',
@@ -22,7 +23,7 @@ export class TasksComponent implements OnInit {
   tasks: any;
 
   taskForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.pattern(/^[*a-zA-Z0-9 áéúíóñ]{1,30}$/)]),
+    name: new FormControl('', [Validators.required, Validators.pattern(REGEX_INPUT_TASK)]),
   });
   nameSearched = '';
 
@@ -36,7 +37,7 @@ export class TasksComponent implements OnInit {
   }
 
   validateNameTask() {
-    const regexp = /^[*a-zA-Z0-9 áéúíóñ]{1,30}$/;
+    const regexp = REGEX_INPUT_TASK;
     const nameTask = this.taskForm?.value?.name || '';
 
     if (!regexp.test(nameTask)) {
