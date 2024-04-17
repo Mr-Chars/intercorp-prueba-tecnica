@@ -18,14 +18,7 @@ export class LoginComponent {
     username: new FormControl('', [Validators.required,]),
     password: new FormControl('', [Validators.required]),
   });
-
-  get username() {
-    return this.loginForm.controls['username'];
-  }
-
-  get password() {
-    return this.loginForm.controls['password'];
-  }
+  
   constructor(
     public readonly userService: UserService,
     public router: Router

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { TASK, USER } from '../../interfaces/generals.interface';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -8,11 +8,12 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css'
 })
 export class TasksComponent implements OnInit {
+  @ViewChild('nameTask') nameTask!: ElementRef;
   user: USER = {
     username: '',
     password: ''
@@ -21,12 +22,10 @@ export class TasksComponent implements OnInit {
   tasks: any;
 
   taskForm = new FormGroup({
-    name: new FormControl('', [Validators.required,]),
+    name: new FormControl('', [Validators.required, Validators.pattern(/^[*a-zA-Z0-9 áéúíóñ]{1,30}$/)]),
   });
+  nameSearched = '';
 
-  get name() {
-    return this.taskForm.controls['name'];
-  }
   constructor(
     public usersService: UserService,
     public taskService: TaskService,
@@ -36,6 +35,17 @@ export class TasksComponent implements OnInit {
     this.user = this.usersService.userLogged$.value;
   }
 
+  validateNameTask() {
+    const regexp = /^[*a-zA-Z0-9 áéúíóñ]{1,30}$/;
+    const nameTask = this.taskForm?.value?.name || '';
+
+    if (!regexp.test(nameTask)) {
+      this.taskForm.controls['name'].setValue(this.nameSearched);
+    } else {
+      this.nameSearched = nameTask;
+    }
+  }
+
   addTask() {
     const task: TASK = {
       name: this.taskForm?.value?.name || '',
@@ -43,8 +53,10 @@ export class TasksComponent implements OnInit {
     }
 
     this.taskService.setTask = task;
-    this.taskForm.controls['name'].setValue('');
+    this.nameTask.nativeElement.blur();
+    this.taskForm.controls['name'].reset();
     this.getTasks();
+    this.nameSearched = '';
   }
 
   getTasks() {

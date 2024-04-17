@@ -5,13 +5,16 @@
 
 .btn-add {
     margin-left: 5px;
-    background: #fff;
-    color: #002FA1;
-    border: 1px solid #002FA1;
     border-radius: 5px;
     font-size: 18px;
 }
 
 .cursor-pointer {
+    cursor: pointer;
+}
+
+.btn-remove-task {
+    text-decoration: none;
+    color: black;
     cursor: pointer;
 }

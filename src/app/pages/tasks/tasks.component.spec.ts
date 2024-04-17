@@ -50,4 +50,22 @@ describe('TasksComponent', () => {
     component.toggleCheck(0);
     expect(component.tasks[0].isChecked).toBeTruthy();
   });
+
+  it('should toggleCheck', () => {
+    component.taskForm.controls['name'].setValue('new task');
+    component.addTask();
+    expect(component.taskService.tasks$.value[0].name).toBe('new task');
+  });
+
+  it('should validateNameTask', () => {
+    component.taskForm.controls['name'].setValue('new task');
+    component.validateNameTask();
+    expect(component.nameSearched).toBe('new task');
+  });
+
+  it('should validateNameTask 2', () => {
+    component.taskForm.controls['name'].setValue('new___sk');
+    component.validateNameTask();
+    expect(component.nameSearched).toBe('');
+  });
 });

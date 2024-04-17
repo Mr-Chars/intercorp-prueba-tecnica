@@ -19,7 +19,8 @@ export class TaskService {
 
   set setTask(task: TASK) {
     let tasks;
-    if (!this.tasks$.value[0].name) {
+
+    if (!this.tasks$?.value[0]?.name) {
       tasks = [task];
     } else {
       tasks = [...this.tasks$.value];
